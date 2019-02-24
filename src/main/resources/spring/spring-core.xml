@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="entity"/>
+    <context:component-scan base-package="test.**" />
+    <!--<context:property-placeholder location="classpath:spring/application.properties"/>-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:application.properties"/>
+        <property name="order" value="99"/>
+    </bean>
+    <bean id="person" class="entity.Person"  p:password="123456" />
+
+    <bean class="test.custom.processor.bean.CustomInstanceBeanPostProcessor" />
+
+    <bean class="test.custom.listener.CustomListener" />
+
+    <!-- 自定义BeanFactory后置处理器,如PropertySourcesPlaceholderConfigurer典型实例;
+         该BeanFactory后置处理器主要用于隐藏所有实体类中的敏感属性值-->
+    <bean id="myBeanFactoryPostProcessor" class="test.custom.processor.factory.CustomBeanFactoryPostProcessor">
+        <property name="order" value="100"/>
+        <property name="lockProperties">
+            <set>
+                <value>123456</value>
+                <value>fuck</value>
+            </set>
+        </property>
+    </bean>
+
+    <!--<bean class="test.custom.processor.factory.CustomBeanFactoryPostProcessor2"/>-->
+
+</beans>
