@@ -3,6 +3,7 @@ package test.custom.context;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import test.custom.processor.bean.CustomInstanceBeanPostProcessor;
 import test.custom.processor.factory.CustomBeanFactoryPostProcessor2;
 
 /**
@@ -24,5 +25,6 @@ public class CustomApplicationContext extends ClassPathXmlApplicationContext {
     @Override
     protected void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
         this.addBeanFactoryPostProcessor(new CustomBeanFactoryPostProcessor2());
+        beanFactory.registerSingleton("customInstanceBeanPostProcessor",new CustomInstanceBeanPostProcessor());
     }
 }

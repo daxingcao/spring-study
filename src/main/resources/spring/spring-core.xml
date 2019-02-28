@@ -2,14 +2,21 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <!-- 扫描注解,例:@Component, @Repository, @Service,@Controller,
+    @RestController, @ControllerAdvice等注解 -->
     <context:component-scan base-package="entity"/>
     <context:component-scan base-package="test.**" />
+    <!-- 启动spring aop注解功能 -->
+    <aop:aspectj-autoproxy />
     <!--<context:property-placeholder location="classpath:spring/application.properties"/>-->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:application.properties"/>
@@ -17,7 +24,9 @@
     </bean>
     <bean id="person" class="entity.Person"  p:password="123456" />
 
-    <bean class="test.custom.processor.bean.CustomInstanceBeanPostProcessor" />
+    <!--<bean class="test.custom.processor.bean.CustomInstanceBeanPostProcessor" />-->
+
+    <!--<bean class="test.custom.processor.bean.CustomInstanceBeanPostProcessor" />-->
 
     <bean class="test.custom.listener.CustomListener" />
 

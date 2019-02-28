@@ -1,7 +1,12 @@
 package entity;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import org.springframework.context.annotation.Bean;
+import test.custom.processor.bean.CustomInstanceBeanPostProcessor;
+
+import java.util.List;
 
 /**
  * @author daxing.cao
@@ -14,6 +19,8 @@ public class Person {
     private String password;
     @Value("${mobile}")
     private String mobile;
+    @Autowired
+    private List<InstantiationAwareBeanPostProcessor> processorList;
 
     public Person(){
         System.out.println("我被实例化了!!!");

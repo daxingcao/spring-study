@@ -2,16 +2,22 @@ package test.custom.processor.bean;
 
 import entity.Person;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import org.springframework.lang.Nullable;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 
 /**
  * @author daxing.cao
  */
-public class CustomInstanceBeanPostProcessor implements InstantiationAwareBeanPostProcessor {
+public class CustomInstanceBeanPostProcessor implements InstantiationAwareBeanPostProcessor,BeanFactoryAware {
+
+    private BeanFactory beanFactory;
+
+    public CustomInstanceBeanPostProcessor(){
+        System.out.println("InstantiationAwareBeanPostProcessor被初始化了:"+this.toString());
+    }
 
     @Nullable
     @Override
@@ -32,6 +38,13 @@ public class CustomInstanceBeanPostProcessor implements InstantiationAwareBeanPo
             person.say();
         }
         System.out.println("bean instance after->"+bean.toString());
+        //如果返回false则不会进行属性注入
         return true;
     }
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory){
+        this.beanFactory = beanFactory;
+    }
+
 }
