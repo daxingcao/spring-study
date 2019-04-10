@@ -18,10 +18,11 @@ public class ProxyExample {
 	public static void main(String[] args) {
 		System.out.println("==================================");
 		UserDaoImpl user = new UserDaoImpl();
-		UserDao userDaoImpl = (UserDaoImpl) new ProxyFactory(user).getProxyInstance();
+		UserDao userDaoImpl = (UserDao) new ProxyFactory(user).getProxyInstance();
 		userDaoImpl.say();
-		UserDaoImpl userDao = (UserDaoImpl) new ProxyFactoryTwo(user).getProxyInstance();
-		userDao.save();
+		System.out.println(userDaoImpl);
+//		UserDaoImpl userDao = (UserDaoImpl) new ProxyFactoryTwo(user).getProxyInstance();
+//		userDao.save();
 	}
 
 }
@@ -57,10 +58,14 @@ class ProxyFactory implements InvocationHandler{
 
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		System.out.println("事务开始");
-		Object invoke = method.invoke(target, args);
-		System.out.println("事务结束");
-		return invoke;
+//		System.out.println("事务开始");
+//		Object invoke = method.invoke(target, args);
+//		System.out.println("事务结束");
+//		return invoke;
+		if(Object.class.equals(method.getDeclaringClass())){
+			return method.invoke(this,args);
+		}
+		return method.invoke(target,args);
 	}
 }
 

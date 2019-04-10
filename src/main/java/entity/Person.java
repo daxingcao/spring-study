@@ -39,4 +39,7 @@ public class Person {
         this.password = password;
     }
 
+    public String getPassword() {
+        return password;
+    }
 }

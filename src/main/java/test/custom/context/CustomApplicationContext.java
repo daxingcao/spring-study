@@ -25,6 +25,6 @@ public class CustomApplicationContext extends ClassPathXmlApplicationContext {
     @Override
     protected void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
         this.addBeanFactoryPostProcessor(new CustomBeanFactoryPostProcessor2());
-        beanFactory.registerSingleton("customInstanceBeanPostProcessor",new CustomInstanceBeanPostProcessor());
+//        beanFactory.registerSingleton("customInstanceBeanPostProcessor",new CustomInstanceBeanPostProcessor());
     }
 }
